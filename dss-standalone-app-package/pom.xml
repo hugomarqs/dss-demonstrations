@@ -7,13 +7,13 @@
 	</parent>
 	<artifactId>dss-standalone-app-package</artifactId>
 	<name>DSS standalone application packager</name>
-	
+
 	<properties>
-		<jre.download.link>https://github.com/adoptium/temurin18-binaries/releases/download/jdk-18.0.2.1%2B1/OpenJDK18U-jre_x64_windows_hotspot_18.0.2.1_1.zip</jre.download.link>
-		<jre.root.folder>jdk-18.0.2.1+1-jre</jre.root.folder>
-		
-		<fx.sdk.download.link>https://download2.gluonhq.com/openjfx/18.0.2/openjfx-18.0.2_windows-x64_bin-sdk.zip</fx.sdk.download.link>
-		<fx.root.folder>javafx-sdk-18.0.2</fx.root.folder>
+		<jre.download.link>https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.2%2B8/OpenJDK17U-jre_x64_windows_hotspot_17.0.2_8.zip</jre.download.link>
+		<jre.root.folder>jdk-17.0.2+8-jre</jre.root.folder>
+
+		<fx.sdk.download.link>https://download2.gluonhq.com/openjfx/17.0.2/openjfx-17.0.2_windows-x64_bin-sdk.zip</fx.sdk.download.link>
+		<fx.root.folder>javafx-sdk-17.0.2</fx.root.folder>
 	</properties>
 
 	<dependencies>
@@ -25,7 +25,7 @@
 
 	<build>
 		<plugins>
-		
+
 			<plugin>
 				<groupId>com.googlecode.maven-download-plugin</groupId>
 				<artifactId>download-maven-plugin</artifactId>
@@ -57,8 +57,8 @@
 					</execution>
 				</executions>
 			</plugin>
-		
-		
+
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -131,7 +131,7 @@
 
 	<profiles>
 		<profile>
-			<!--  this profile allows to generate a installer for Windows. It requires that WiX is installed on the computer (http://wixtoolset.org/)  --> 
+			<!--  this profile allows to generate a installer for Windows. It requires that WiX is installed on the computer (http://wixtoolset.org/)  -->
 			<id>wix-package</id>
 			<build>
 				<plugins>

@@ -5,7 +5,7 @@
         <div class="list-group list-group-flush">
             <a th:href="@{/sign-a-document}" class="list-group-item" th:classappend="${#httpServletRequest.getRequestURI() == '/sign-a-document' ? 'active' : ''}" th:text="#{label.signADocument}">Sign a document</a>
             <a th:href="@{/sign-a-digest}" class="list-group-item" th:classappend="${#httpServletRequest.getRequestURI() == '/sign-a-digest' ? 'active' : ''}" th:text="#{label.signADigest}">Sign a digest</a>
-			<a th:href="@{/sign-a-pdf}" class="list-group-item" th:classappend="${#httpServletRequest.getRequestURI() == '/sign-a-pdf' ? 'active' : ''}" th:text="#{label.signAPDF}">Sign a PDF</a>
+            <a th:href="@{/sign-a-pdf}" class="list-group-item" th:classappend="${#httpServletRequest.getRequestURI() == '/sign-a-pdf' ? 'active' : ''}" th:text="#{label.signAPDF}">Sign a PDF</a>
             <a th:href="@{/sign-with-jades}" class="list-group-item" th:classappend="${#httpServletRequest.getRequestURI() == '/sign-with-jades' ? 'active' : ''}" th:text="#{label.signWithJAdES}">Sign with JAdES</a>
             <a th:href="@{/sign-multiple-documents}" class="list-group-item" th:classappend="${#httpServletRequest.getRequestURI() == '/sign-multiple-documents' ? 'active' : ''}" th:text="#{label.signMultiDocuments}">Sign multi documents</a>
             <a th:href="@{/counter-sign}" class="list-group-item" th:classappend="${#httpServletRequest.getRequestURI() == '/counter-sign' ? 'active' : ''}" th:text="#{label.counterSignature}">Counter signature</a>
@@ -13,7 +13,14 @@
             <a th:href="@{/signature-rest}" class="list-group-item" th:classappend="${#httpServletRequest.getRequestURI() == '/signature-rest' ? 'active' : ''}" th:text="#{label.rest.soap.services}">REST/SOAP WebServices</a>
         </div>
     </div>
-    
+
+    <div class="card mt-3">
+        <div class="card-header bg-primary">e-Signature with CMD</div>
+        <div class="list-group list-group-flush">
+            <a th:href="@{/cmd-sign-a-document}" class="list-group-item" th:classappend="${#httpServletRequest.getRequestURI() == '/cmd-sign-a-document' ? 'active' : ''}" th:text="#{label.signADocument}">Sign a document</a>
+        </div>
+    </div>
+
     <div class="card mt-3">
         <div class="card-header bg-primary">Server side</div>
         <div class="list-group list-group-flush">

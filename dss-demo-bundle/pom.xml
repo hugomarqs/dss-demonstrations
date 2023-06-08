@@ -14,11 +14,11 @@
 
 	<artifactId>dss-demo-bundle</artifactId>
 	<packaging>pom</packaging>
-	
+
 	<properties>
-		<jre.download.link>https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u345-b01/OpenJDK8U-jre_x86-32_windows_hotspot_8u345b01.zip</jre.download.link>
-		<jre.root.folder>jdk8u345-b01-jre</jre.root.folder>
-		<tomcat.version>8.5.82</tomcat.version>
+		<jre.download.link>https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u292-b10/OpenJDK8U-jre_x86-32_windows_hotspot_8u292b10.zip</jre.download.link>
+		<jre.root.folder>jdk8u292-b10-jre</jre.root.folder>
+		<tomcat.version>8.5.78</tomcat.version>
 		<tomcat.root.folder>apache-tomcat-${tomcat.version}</tomcat.root.folder>
 	</properties>
 
@@ -40,6 +40,7 @@
 			<groupId>eu.europa.ec.joinup.sd-dss</groupId>
 			<artifactId>dss-demo-webapp</artifactId>
 			<type>war</type>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 		    <groupId>org.apache.tomcat</groupId>
@@ -69,7 +70,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<executions>
@@ -101,14 +102,14 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<profiles>
 		<profile>
-			<id>java18</id>
+			<id>java17</id>
 			<properties>
-				<jre.download.link>https://github.com/adoptium/temurin18-binaries/releases/download/jdk-18.0.2.1%2B1/OpenJDK18U-jre_x86-32_windows_hotspot_18.0.2.1_1.zip</jre.download.link>
-				<jre.root.folder>jdk-18.0.2.1+1-jre</jre.root.folder>
-				<tomcat.version>9.0.68</tomcat.version>
+				<jre.download.link>https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.2%2B8/OpenJDK17U-jre_x86-32_windows_hotspot_17.0.2_8.zip</jre.download.link>
+				<jre.root.folder>jdk-17.0.2+8-jre</jre.root.folder>
+				<tomcat.version>9.0.62</tomcat.version>
 			</properties>
 		</profile>
 	</profiles>

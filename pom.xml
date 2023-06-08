@@ -63,7 +63,7 @@
 		<fop-core.version>2.7</fop-core.version>
 		<batik.version>1.15</batik.version> <!-- To be used while fop-core is not updated -->
 		<nexu.version>1.22</nexu.version>
-		
+
 		<junit.jupiter.version>5.9.1</junit.jupiter.version>
 	</properties>
 
@@ -84,7 +84,7 @@
 		<module>dss-standalone-app</module>
 		<module>dss-standalone-app-package</module>
 		<module>dss-demo-webapp</module>
-		<module>dss-demo-bundle</module>        
+		<module>dss-demo-bundle</module>
 		<module>sscd-mocca-adapter</module>
 		<module>dss-rest-doc-generation</module>
 		<module>dss-esig-validation-tests</module>
@@ -108,12 +108,12 @@
 				<executions>
 					<execution>
 						<id>enforce</id>
-				        <goals>
+						<goals>
 							<goal>enforce</goal>
 						</goals>
 						<configuration>
 							<rules>
-                				<banDuplicatePomDependencyVersions />
+								<banDuplicatePomDependencyVersions />
 								<bannedDependencies>
 									<excludes>
 										<exclude>xalan:xalan</exclude>
@@ -247,10 +247,10 @@
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-                <groupId>eu.europa.ec.joinup.sd-dss</groupId>
-                <artifactId>sscd-mocca-adapter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+				<groupId>eu.europa.ec.joinup.sd-dss</groupId>
+				<artifactId>sscd-mocca-adapter</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 
 			<!-- DSS Framework dependencies -->
 
@@ -285,11 +285,11 @@
 				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
-		        <groupId>org.springframework.security</groupId>
-		        <artifactId>spring-security-web</artifactId>
-		        <version>${spring-security.version}</version>
-		    </dependency>
-		    <dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>${spring-security.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-config</artifactId>
 				<version>${spring-security.version}</version>
@@ -299,6 +299,12 @@
 				<artifactId>spring-test</artifactId>
 				<version>${spring.version}</version>
 				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-ws-security</artifactId>
+				<version>3.5.2</version>
 			</dependency>
 
 			<dependency>
@@ -312,9 +318,9 @@
 				<version>${commons-io.version}</version>
 			</dependency>
 			<dependency>
-			    <groupId>org.freemarker</groupId>
-			    <artifactId>freemarker</artifactId>
-			    <version>${freemarker.version}</version>
+				<groupId>org.freemarker</groupId>
+				<artifactId>freemarker</artifactId>
+				<version>${freemarker.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.xmlgraphics</groupId>
@@ -353,7 +359,7 @@
 				<artifactId>batik-transcoder</artifactId>
 				<version>${batik.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.apache.cxf</groupId>
 				<artifactId>cxf-rt-frontend-jaxws</artifactId>
@@ -370,28 +376,28 @@
 				<version>${cxf.version}</version>
 			</dependency>
 			<dependency>
-			  <groupId>org.apache.cxf</groupId>
-			  <artifactId>cxf-rt-rs-service-description</artifactId> <!--  to access to wadl -->
-			  <version>${cxf.version}</version>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-rs-service-description</artifactId> <!--  to access to wadl -->
+				<version>${cxf.version}</version>
 			</dependency>
 			<dependency>
-			    <groupId>org.apache.cxf</groupId>
-			    <artifactId>cxf-rt-rs-client</artifactId>
-			    <version>${cxf.version}</version> 
-			    <scope>test</scope>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-rs-client</artifactId>
+				<version>${cxf.version}</version>
+				<scope>test</scope>
 			</dependency>
-			
+
 			<dependency>
-			    <groupId>org.apache.cxf</groupId>
-			    <artifactId>cxf-rt-rs-service-description-openapi-v3</artifactId>
-			    <version>${cxf.version}</version>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-rs-service-description-openapi-v3</artifactId>
+				<version>${cxf.version}</version>
 			</dependency>
-			
+
 			<dependency>
-	            <groupId>org.webjars</groupId>
-	            <artifactId>swagger-ui</artifactId>
-	            <version>${swagger-ui.version}</version>
-	        </dependency>
+				<groupId>org.webjars</groupId>
+				<artifactId>swagger-ui</artifactId>
+				<version>${swagger-ui.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>com.fasterxml.jackson.jaxrs</groupId>
@@ -415,7 +421,7 @@
 				<artifactId>thymeleaf-spring5</artifactId>
 				<version>${thymeleaf-spring5.version}</version>
 			</dependency>
-				
+
 			<!-- Logger -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
@@ -451,15 +457,15 @@
 				<artifactId>logback-classic</artifactId>
 				<version>${logback-classic.version}</version>
 			</dependency>
-			
+
 			<dependency>
-			    <groupId>org.junit.jupiter</groupId>
-			    <artifactId>junit-jupiter-engine</artifactId>
-			    <version>${junit.jupiter.version}</version>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-engine</artifactId>
+				<version>${junit.jupiter.version}</version>
 			</dependency>
 			<dependency>
-			    <groupId>nz.net.ultraq.thymeleaf</groupId>
-			    <artifactId>thymeleaf-layout-dialect</artifactId>
+				<groupId>nz.net.ultraq.thymeleaf</groupId>
+				<artifactId>thymeleaf-layout-dialect</artifactId>
 				<version>${thymeleaf-layout-dialect.version}</version>
 			</dependency>
 			<dependency>
@@ -472,9 +478,9 @@
 
 	<repositories>
 		<repository>
-		  <id>cefdigital</id>
-		  <name>CEF Digital</name>
-		  <url>https://ec.europa.eu/digital-building-blocks/artifact/content/repositories/esignaturedss/</url>
+			<id>cefdigital</id>
+			<name>CEF Digital</name>
+			<url>https://ec.europa.eu/digital-building-blocks/artifact/content/repositories/esignaturedss/</url>
 		</repository>
 	</repositories>
 
