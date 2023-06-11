@@ -1,15 +1,27 @@
 package eu.europa.esig.dss.web.config;
 
 import eu.europa.esig.dss.utils.Utils;
+import eu.europa.esig.dss.web.controller.CMDSignatureController;
+import eu.europa.esig.dss.web.security.AuthUserDetailsService;
+import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.security.web.firewall.RequestRejectedHandler;
 import org.springframework.security.web.header.HeaderWriter;
@@ -38,11 +50,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Value("${web.security.csp}")
 	private String csp;
+
+
+	AuthUserDetailsService authUserDetailsService;
 	
 	/** API urls (REST/SOAP webServices) */
 	private static final String[] API_URLS = new String[] {
 			"/services/rest/**", "/services/soap/**"
 	};
+
+	public WebSecurityConfig(AuthUserDetailsService authUserDetailsService) {
+		this.authUserDetailsService = authUserDetailsService;
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -57,6 +76,39 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			http.headers().contentSecurityPolicy(csp);
 		}
 	}
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/cmd-sign-a-document").authenticated()
+				.antMatchers("/sign-document").authenticated()
+				.antMatchers("/sign-document/download").authenticated()
+				.anyRequest().permitAll()
+				.and()
+				.formLogin()
+				.permitAll()
+				.and()
+				.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+				.and()
+				.logout()
+				.permitAll();
+		return http.build();
+	}
+
+
+
+	@Bean public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception{
+		AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject
+				(AuthenticationManagerBuilder.class);
+		authenticationManagerBuilder.userDetailsService(authUserDetailsService)
+				.passwordEncoder(passwordEncoder());
+		return authenticationManagerBuilder.build();
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
 
 	@Bean
 	public HeaderWriter javadocHeaderWriter() {
