@@ -51,17 +51,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Value("${web.security.csp}")
 	private String csp;
 
-
-	AuthUserDetailsService authUserDetailsService;
+	@Autowired
+	private AuthUserDetailsService authUserDetailsService;
 	
 	/** API urls (REST/SOAP webServices) */
 	private static final String[] API_URLS = new String[] {
 			"/services/rest/**", "/services/soap/**"
 	};
 
-	public WebSecurityConfig(AuthUserDetailsService authUserDetailsService) {
-		this.authUserDetailsService = authUserDetailsService;
-	}
+
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

@@ -1,5 +1,6 @@
 package eu.europa.esig.dss.web.model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Collection;
 
+@Document
 public class User implements UserDetails {
 
     @NotNull
