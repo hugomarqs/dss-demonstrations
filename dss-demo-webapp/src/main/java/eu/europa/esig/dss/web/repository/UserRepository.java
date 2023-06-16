@@ -1,8 +1,11 @@
 package eu.europa.esig.dss.web.repository;
 
+import eu.europa.esig.dss.web.config.MongoConfig;
 import eu.europa.esig.dss.web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,16 +16,13 @@ import org.springframework.stereotype.Service;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
-@Service
-@Repository
+
+@Component
+@Import(MongoConfig.class)
 public class UserRepository {
+    @Autowired
 
-    MongoTemplate mongoTemplate;
-
-    private UserRepository(MongoTemplate mongoTemplate) {
-        this.mongoTemplate = mongoTemplate;
-    }
-
+    public MongoTemplate mongoTemplate;
     public User save(User user) {
         return mongoTemplate.save(user);
     }

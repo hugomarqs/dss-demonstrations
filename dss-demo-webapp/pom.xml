@@ -151,7 +151,7 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>
-			<version>4.1.0</version>
+			<version>3.3.10</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -473,9 +473,14 @@
 			<version>9.0.62</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>3.12.14</version>
+		</dependency>
 
 
-	</dependencies>
+    </dependencies>
 
 	<profiles>
 		<profile>

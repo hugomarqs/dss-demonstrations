@@ -1,6 +1,8 @@
 package eu.europa.esig.dss.web.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,9 +11,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Collection;
 
-@Document
+@Document(collection = "users")
 public class User implements UserDetails {
-
+    private @MongoId ObjectId id;
     @NotNull
     @Email(message = "{error.auth.username.wrongInput}")
     private String email;

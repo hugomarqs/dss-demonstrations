@@ -12,6 +12,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import eu.europa.esig.dss.web.config.MongoConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -27,7 +28,7 @@ import eu.europa.esig.dss.utils.Utils;
 import eu.europa.esig.dss.web.config.DSSBeanConfig;
 
 @WebAppConfiguration
-@ContextConfiguration(classes = { DSSBeanConfig.class })
+@ContextConfiguration(classes = { DSSBeanConfig.class})
 @ExtendWith(SpringExtension.class)
 public class XSLTServiceTest {
 
