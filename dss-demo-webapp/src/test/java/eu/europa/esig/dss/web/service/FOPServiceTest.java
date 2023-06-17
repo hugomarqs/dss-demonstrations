@@ -4,10 +4,13 @@ package eu.europa.esig.dss.web.service;
 import eu.europa.esig.dss.detailedreport.jaxb.XmlDetailedReport;
 import eu.europa.esig.dss.simplereport.jaxb.XmlSimpleReport;
 import eu.europa.esig.dss.web.config.DSSBeanConfig;
+import eu.europa.esig.dss.web.config.MongoConfig;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -23,7 +26,7 @@ import java.io.StringWriter;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @WebAppConfiguration
-@ContextConfiguration(classes = { DSSBeanConfig.class })
+@ContextConfiguration(classes = { DSSBeanConfig.class})
 @ExtendWith(SpringExtension.class)
 public class FOPServiceTest {
 

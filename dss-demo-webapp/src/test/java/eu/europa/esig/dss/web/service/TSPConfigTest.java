@@ -3,6 +3,7 @@ package eu.europa.esig.dss.web.service;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import eu.europa.esig.dss.web.config.MongoConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import eu.europa.esig.dss.utils.Utils;
 import eu.europa.esig.dss.web.config.DSSBeanConfig;
 
 @WebAppConfiguration
-@ContextConfiguration(classes = { DSSBeanConfig.class })
+@ContextConfiguration(classes = { DSSBeanConfig.class})
 @ExtendWith(SpringExtension.class)
 public class TSPConfigTest {
 

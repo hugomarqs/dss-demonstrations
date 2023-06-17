@@ -1,8 +1,8 @@
 package eu.europa.esig.dss.web;
 
-import eu.europa.esig.dss.web.config.DSSBeanConfig;
-import eu.europa.esig.dss.web.config.JdbcInitializer;
-import eu.europa.esig.dss.web.config.WebConfig;
+import eu.europa.esig.dss.web.config.*;
+import eu.europa.esig.dss.web.repository.UserRepository;
+import eu.europa.esig.dss.web.security.AuthUserDetailsService;
 import org.apache.cxf.BusFactory;
 import org.apache.cxf.transport.servlet.CXFServlet;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,12 +31,11 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		ServletRegistration.Dynamic cxfServlet = servletContext.addServlet("CXFServlet", cxf);
 		cxfServlet.setLoadOnStartup(1);
 		cxfServlet.addMapping("/services/*");
-
 		servletContext.getSessionCookieConfig().setSecure(cookieSecure);
 
 		// avoid urls with jsessionid param
 		servletContext.setSessionTrackingModes(Collections.singleton(SessionTrackingMode.COOKIE));
-		
+
 		// avoid Cross-site Scripting (XSS)
 		servletContext.setInitParameter("defaultHtmlEscape", "true");
 	}
@@ -49,7 +48,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] { DSSBeanConfig.class, JdbcInitializer.class };
+		return new Class[] { DSSBeanConfig.class, JdbcInitializer.class, WebSecurityConfig.class};
 	}
 
 	@Override
@@ -66,5 +65,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	protected Filter[] getServletFilters() {
 		return new Filter[] { new CharacterEncodingFilter("UTF-8") };
 	}
+
+
 
 }
