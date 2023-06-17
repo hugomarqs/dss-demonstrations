@@ -148,11 +148,7 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-mongodb</artifactId>
-			<version>3.3.10</version>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
@@ -164,6 +160,16 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>3.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>3.8.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -198,6 +204,7 @@
 			<groupId>eu.europa.ec.joinup.sd-dss</groupId>
 			<artifactId>dss-tsl-validation</artifactId>
 		</dependency>
+
 
 		<!-- Choose your implementation -->
 		<!-- 		<dependency> -->
@@ -472,11 +479,6 @@
 			<artifactId>tomcat-embed-core</artifactId>
 			<version>9.0.62</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongo-java-driver</artifactId>
-			<version>3.12.14</version>
 		</dependency>
 
 

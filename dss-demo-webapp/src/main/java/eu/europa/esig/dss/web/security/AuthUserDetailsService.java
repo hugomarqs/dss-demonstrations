@@ -1,5 +1,6 @@
-package eu.europa.esig.dss.web.service;
+package eu.europa.esig.dss.web.security;
 
+import eu.europa.esig.dss.web.model.User;
 import eu.europa.esig.dss.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,6 +19,14 @@ public class AuthUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return this.userRepository.findUserByEmail(username);
+        User user = this.userRepository.findUserByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return user;
+    }
+
+    public User SaveUser(User user) {
+        return this.userRepository.save(user);
     }
 }

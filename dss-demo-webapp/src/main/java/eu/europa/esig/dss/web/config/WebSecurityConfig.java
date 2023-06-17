@@ -1,7 +1,8 @@
 package eu.europa.esig.dss.web.config;
 
 import eu.europa.esig.dss.utils.Utils;
-import eu.europa.esig.dss.web.service.AuthUserDetailsService;
+import eu.europa.esig.dss.web.model.User;
+import eu.europa.esig.dss.web.security.AuthUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.security.web.firewall.RequestRejectedHandler;
 import org.springframework.security.web.header.HeaderWriter;
@@ -39,7 +45,8 @@ import java.util.Collection;
 @Configuration
 @EnableWebSecurity
 @Import(MongoConfig.class)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+@ComponentScan(basePackages = { "eu.europa.esig.dss.web.security"})
+public class WebSecurityConfig  {
 
 	private static final Logger LOG = LoggerFactory.getLogger(WebSecurityConfig.class);
 
@@ -49,18 +56,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Value("${web.security.csp}")
 	private String csp;
 
-	@Autowired
-	private AuthUserDetailsService userDetailsService;
+
 	
 	/** API urls (REST/SOAP webServices) */
 	private static final String[] API_URLS = new String[] {
 			"/services/rest/**", "/services/soap/**"
 	};
 
+	@Bean
+	public AuthUserDetailsService userDetailsService() {
+		return new AuthUserDetailsService();
+	}
 
-
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.headers().addHeaderWriter(javadocHeaderWriter());
 		http.headers().addHeaderWriter(svgHeaderWriter());
 		http.headers().addHeaderWriter(serverEsigDSS());
@@ -71,28 +80,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			http.headers().contentSecurityPolicy(csp);
 		}
 
-		http.authorizeRequests()
+		return http
+				.authorizeRequests()
 				.antMatchers("/cmd-sign-a-document").authenticated()
 				.antMatchers("/sign-document").authenticated()
 				.antMatchers("/sign-document/download").authenticated()
 				.anyRequest().permitAll()
 				.and()
-				.formLogin()
-				.and()
-				.authenticationManager(customAuthenticationManager(http))
+				.formLogin(Customizer.withDefaults())
 				.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+				.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+				.and()
+				.build();
 	}
 
 
-
-	@Bean
-	public AuthenticationManager customAuthenticationManager(HttpSecurity http) throws Exception {
-		AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-		return authenticationManagerBuilder.build();
+    @Bean
+	public AuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider dao =  new DaoAuthenticationProvider();
+		dao.setUserDetailsService(userDetailsService());
+		dao.setPasswordEncoder(passwordEncoder());
+		return dao;
 	}
-
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

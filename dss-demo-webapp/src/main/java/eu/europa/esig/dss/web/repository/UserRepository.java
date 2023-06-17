@@ -21,7 +21,6 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 @Import(MongoConfig.class)
 public class UserRepository {
     @Autowired
-
     public MongoTemplate mongoTemplate;
     public User save(User user) {
         return mongoTemplate.save(user);
