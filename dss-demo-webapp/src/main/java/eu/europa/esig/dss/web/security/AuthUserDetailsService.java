@@ -19,14 +19,12 @@ public class AuthUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = this.userRepository.findUserByEmail(username);
+        User user = this.userRepository.findUserByName(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
         return user;
     }
 
-    public User SaveUser(User user) {
-        return this.userRepository.save(user);
-    }
+
 }

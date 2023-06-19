@@ -87,7 +87,12 @@ public class WebSecurityConfig  {
 				.antMatchers("/sign-document/download").authenticated()
 				.anyRequest().permitAll()
 				.and()
-				.formLogin(Customizer.withDefaults())
+				.formLogin(form -> form
+						.loginPage("/login")
+						.permitAll()
+						.defaultSuccessUrl("/cmd-sign-a-document", false)
+						.failureUrl("/login?error=true")
+						)
 				.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
 				.and()

@@ -12,6 +12,7 @@ import eu.europa.esig.dss.web.editor.ASiCContainerTypePropertyEditor;
 import eu.europa.esig.dss.web.editor.EnumPropertyEditor;
 import eu.europa.esig.dss.web.model.CMDOTPForm;
 import eu.europa.esig.dss.web.model.CMDSignatureDocumentForm;
+import eu.europa.esig.dss.web.model.User;
 import eu.europa.esig.dss.web.service.CMDService;
 import eu.europa.esig.dss.web.service.SigningService;
 import org.slf4j.Logger;
@@ -19,6 +20,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -69,20 +72,24 @@ public class CMDSignatureController {
         webDataBinder.registerCustomEditor(SignatureLevel.class, new EnumPropertyEditor(SignatureLevel.class));
         webDataBinder.registerCustomEditor(DigestAlgorithm.class, new EnumPropertyEditor(DigestAlgorithm.class));
         webDataBinder.registerCustomEditor(EncryptionAlgorithm.class, new EnumPropertyEditor(EncryptionAlgorithm.class));
+        setAllowedFields(webDataBinder);
     }
 
-    @InitBinder
+
     public void setAllowedFields(WebDataBinder webDataBinder) {
-        webDataBinder.setAllowedFields(ALLOWED_FIELDS);
-    }
 
+        webDataBinder.setAllowedFields(ALLOWED_FIELDS);
+
+    }
+    //TODO: might be needed to get from db at this point to refresh user phone number
     @RequestMapping(method = RequestMethod.GET)
 
     public String showSignatureParameters(Model model, HttpServletRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CMDSignatureDocumentForm signatureDocumentForm = new CMDSignatureDocumentForm();
-
+        User currentPrincipal = (User) authentication.getPrincipal();
         signatureDocumentForm.setDigestAlgorithm(DigestAlgorithm.forName(defaultDigestAlgo, DigestAlgorithm.SHA256));
-
+        signatureDocumentForm.setUserId(currentPrincipal.getPhone_number());
         model.addAttribute("signatureDocumentForm", signatureDocumentForm);
 
         return SIGNATURE_START;
