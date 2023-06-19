@@ -26,8 +26,8 @@ public class UserRepository {
         return mongoTemplate.save(user);
     }
 
-    public User findUserByEmail(String email){
-        return mongoTemplate.findOne(query(where("email").is(email)), User.class);
+    public User findUserByName(String username){
+        return mongoTemplate.findOne(query(where("username").is(username)), User.class);
     }
 
 }

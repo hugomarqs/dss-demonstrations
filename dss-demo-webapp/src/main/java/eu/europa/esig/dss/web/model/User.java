@@ -15,20 +15,29 @@ import java.util.Collection;
 public class User implements UserDetails {
     private @MongoId ObjectId id;
     @NotNull
-    @Email(message = "{error.auth.username.wrongInput}")
-    private String email;
+    private String username;
     @NotNull
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,64}$" , message = "{error.auth.password.wrongInput}")
     private String password;
 
-    public User(String email, String password) {
-        this.email = email;
+    private String phone_number;
+
+    public User(String username, String password, String phone_number) {
+        this.username = username;
         this.password = password;
+        this.phone_number = phone_number;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
+    }
+
+
+
+
+    public String getPhone_number() {
+        return phone_number;
     }
 
     @Override
@@ -38,7 +47,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.email;
+        return this.username;
     }
 
     @Override
