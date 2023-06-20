@@ -106,7 +106,7 @@ public class CMDSignatureController {
             }
             return SIGNATURE_START;
         }
-
+        LOG.info("form: " + signatureDocumentForm.getUserId());
         // Get the user's certificates
         List<String> certificates;
         try {
