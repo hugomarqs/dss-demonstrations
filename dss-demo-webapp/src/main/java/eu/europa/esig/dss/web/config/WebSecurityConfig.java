@@ -85,6 +85,7 @@ public class WebSecurityConfig  {
 				.antMatchers("/cmd-sign-a-document").authenticated()
 				.antMatchers("/sign-document").authenticated()
 				.antMatchers("/sign-document/download").authenticated()
+				.antMatchers("/account-management").authenticated()
 				.anyRequest().permitAll()
 				.and()
 				.formLogin(form -> form

@@ -5,13 +5,9 @@ import eu.europa.esig.dss.web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
@@ -29,5 +25,15 @@ public class UserRepository {
     public User findUserByName(String username){
         return mongoTemplate.findOne(query(where("username").is(username)), User.class);
     }
+
+    public User updateNumbUser(String number, String id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("_id").is(id));
+        User user = mongoTemplate.findOne(query, User.class);
+        user.setPhone_number(number);
+        return mongoTemplate.save(user);
+    }
+    
+
 
 }

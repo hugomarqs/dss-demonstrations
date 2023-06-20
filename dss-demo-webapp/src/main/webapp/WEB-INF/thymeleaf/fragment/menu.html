@@ -18,6 +18,7 @@
         <div class="card-header bg-primary">e-Signature with CMD</div>
         <div class="list-group list-group-flush">
             <a th:href="@{/cmd-sign-a-document}" class="list-group-item" th:classappend="${#httpServletRequest.getRequestURI() == '/cmd-sign-a-document' ? 'active' : ''}" th:text="#{label.signADocument}">Sign a document</a>
+            <a th:href="@{/account-management}" class="list-group-item" th:classappend="${#httpServletRequest.getRequestURI() == '/account-management' ? 'active' : ''}" th:text="#{label.account_management}">Account Management</a>
 
         </div>
     </div>

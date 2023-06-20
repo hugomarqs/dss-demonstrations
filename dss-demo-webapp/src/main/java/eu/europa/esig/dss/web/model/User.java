@@ -32,9 +32,13 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
+     public String getId() {
+         return String.valueOf(id);
+     }
 
-
-
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
 
     public String getPhone_number() {
         return phone_number;
