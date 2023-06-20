@@ -13,7 +13,7 @@ import java.util.Collection;
 
 @Document(collection = "users")
 public class User implements UserDetails {
-    private @MongoId ObjectId id;
+    private String id;
     @NotNull
     private String username;
     @NotNull
@@ -33,8 +33,9 @@ public class User implements UserDetails {
         return null;
     }
      public String getId() {
-         return String.valueOf(id);
+         return this.id;
      }
+
 
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;

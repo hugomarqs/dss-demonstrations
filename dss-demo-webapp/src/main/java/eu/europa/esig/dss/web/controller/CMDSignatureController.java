@@ -91,7 +91,6 @@ public class CMDSignatureController {
         signatureDocumentForm.setDigestAlgorithm(DigestAlgorithm.forName(defaultDigestAlgo, DigestAlgorithm.SHA256));
         signatureDocumentForm.setUserId(currentPrincipal.getPhone_number());
         model.addAttribute("signatureDocumentForm", signatureDocumentForm);
-
         return SIGNATURE_START;
     }
 

@@ -3,6 +3,8 @@ package eu.europa.esig.dss.web.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
@@ -24,6 +26,9 @@ import org.springframework.ui.Model;
 @SessionAttributes(value = { "accountManagementForm" })
 @RequestMapping(value = "/account-management")
 public class AccountManagementController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AccountManagementController.class);
+
     @Autowired
     private UserRepository userRepository;
 
@@ -42,10 +47,12 @@ public class AccountManagementController {
     @RequestMapping(method = RequestMethod.POST)
     public String updateNumber(Model model, HttpServletRequest request, @ModelAttribute("accountManagementForm") @Valid AccountManagementForm accountManagementForm) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User u_tmp = userRepository.updateNumbUser(accountManagementForm.getUserId(), ((User) authentication.getPrincipal()).getId().toString());
+        User u_tmp = userRepository.updateNumbUser(accountManagementForm.getUserId(), ((User) authentication.getPrincipal()).getId());
+        LOG.info("form: " + accountManagementForm.getUserId());
+        LOG.info("User updated: " + u_tmp.getId() + " " + u_tmp.getPhone_number());
         //TODO: check if user is null
-        User currentPrincipal = (User) authentication.getPrincipal();
-        accountManagementForm.setUserId(u_tmp.getPhone_number());
+        //User currentPrincipal = (User) authentication.getPrincipal();
+        //accountManagementForm.setUserId();
         model.addAttribute("accountManagementForm", accountManagementForm);
 
         return "account-management";
