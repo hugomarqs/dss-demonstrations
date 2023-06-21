@@ -83,8 +83,11 @@ public class WebSecurityConfig  {
 		return http
 				.authorizeRequests()
 				.antMatchers("/cmd-sign-a-document").authenticated()
-				.antMatchers("/sign-document").authenticated()
-				.antMatchers("/sign-document/download").authenticated()
+				.antMatchers("/cmd-sign-a-digest").authenticated()
+				.antMatchers("/cmd-sign-a-document/sign-document").authenticated()
+				.antMatchers("/cmd-sign-a-document/sign-document/download").authenticated()
+				.antMatchers("/cmd-sign-a-digest/sign-document").authenticated()
+				.antMatchers("/cmd-sign-a-digest/sign-document/download").authenticated()
 				.antMatchers("/account-management").authenticated()
 				.anyRequest().permitAll()
 				.and()

@@ -65,8 +65,7 @@ public class CMDSignatureController {
     @Autowired
     private CMDService cmdService;
 
-    @Autowired
-    private UserRepository userRepository;
+
 
     @InitBinder
     public void initBinder(WebDataBinder webDataBinder) {
@@ -109,7 +108,6 @@ public class CMDSignatureController {
             }
             return SIGNATURE_START;
         }
-        LOG.info("form: " + signatureDocumentForm.getUserId());
         // Get the user's certificates
         List<String> certificates;
         try {
