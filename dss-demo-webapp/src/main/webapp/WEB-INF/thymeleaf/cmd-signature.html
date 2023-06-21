@@ -26,9 +26,8 @@
 
         <div th:replace="fragment/fields::field-content-timestamp"></div>
 
-        <div th:replace="fragment/fields::field-user-id"></div>
+        <div th:replace="fragment/fields::field-user-id-readonly"></div>
 
-        <div th:replace="fragment/fields::field-save-user-id"></div>
 
         <div th:replace="fragment/fields::field-user-pin"></div>
 
@@ -44,7 +43,6 @@
 <div layout:fragment="scripts">
     <script type="text/javascript" th:src="@{/scripts/jsDigestAlgorithm.js}"></script>
     <script type="text/javascript" th:src="@{/scripts/jsSignatureLevel.js}"></script>
-    <script type="text/javascript" th:src="@{/scripts/jsSaveCmdUserId.js}"></script>
     <script type="text/javascript">
 				$('[data-toggle="tooltip"]').tooltip();
             </script>

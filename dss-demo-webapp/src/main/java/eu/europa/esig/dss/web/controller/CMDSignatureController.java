@@ -13,6 +13,7 @@ import eu.europa.esig.dss.web.editor.EnumPropertyEditor;
 import eu.europa.esig.dss.web.model.CMDOTPForm;
 import eu.europa.esig.dss.web.model.CMDSignatureDocumentForm;
 import eu.europa.esig.dss.web.model.User;
+import eu.europa.esig.dss.web.repository.UserRepository;
 import eu.europa.esig.dss.web.service.CMDService;
 import eu.europa.esig.dss.web.service.SigningService;
 import org.slf4j.Logger;
@@ -64,6 +65,9 @@ public class CMDSignatureController {
     @Autowired
     private CMDService cmdService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @InitBinder
     public void initBinder(WebDataBinder webDataBinder) {
         webDataBinder.registerCustomEditor(SignatureForm.class, new EnumPropertyEditor(SignatureForm.class));
@@ -72,10 +76,9 @@ public class CMDSignatureController {
         webDataBinder.registerCustomEditor(SignatureLevel.class, new EnumPropertyEditor(SignatureLevel.class));
         webDataBinder.registerCustomEditor(DigestAlgorithm.class, new EnumPropertyEditor(DigestAlgorithm.class));
         webDataBinder.registerCustomEditor(EncryptionAlgorithm.class, new EnumPropertyEditor(EncryptionAlgorithm.class));
-        setAllowedFields(webDataBinder);
     }
 
-
+    @InitBinder
     public void setAllowedFields(WebDataBinder webDataBinder) {
 
         webDataBinder.setAllowedFields(ALLOWED_FIELDS);

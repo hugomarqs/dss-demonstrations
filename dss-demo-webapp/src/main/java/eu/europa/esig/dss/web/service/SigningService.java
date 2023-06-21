@@ -410,6 +410,8 @@ public class SigningService {
 			DSSDocument toSignDocument = WebAppUtils.toDSSDocument(form.getDocumentToSign());
 			SignatureAlgorithm sigAlgorithm = SignatureAlgorithm.getAlgorithm(form.getEncryptionAlgorithm(), form.getDigestAlgorithm());
 			SignatureValue signatureValue = new SignatureValue(sigAlgorithm, Utils.fromBase64(form.getBase64SignatureValue()));
+			/* TODO: Estoura aqui */
+			LOG.info("toSignDocument: " + toSignDocument.toString() + " parameters: " + parameters.toString() + " signatureValue: " + signatureValue.toString());
 			DSSDocument signedDocument = service.signDocument(toSignDocument, parameters, signatureValue);
 			LOG.info("End signDocument with one document");
 			return signedDocument;

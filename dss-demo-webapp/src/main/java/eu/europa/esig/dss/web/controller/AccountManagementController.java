@@ -38,7 +38,7 @@ public class AccountManagementController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AccountManagementForm accountManagementForm = new AccountManagementForm();
         User currentPrincipal = (User) authentication.getPrincipal();
-        accountManagementForm.setUserId(currentPrincipal.getPhone_number());
+        accountManagementForm.setUserId(currentPrincipal.getPhone_number().equals("") ? "+351" : currentPrincipal.getPhone_number());
         model.addAttribute("accountManagementForm", accountManagementForm);
 
         return "account-management";
@@ -47,7 +47,9 @@ public class AccountManagementController {
     @RequestMapping(method = RequestMethod.POST)
     public String updateNumber(Model model, HttpServletRequest request, @ModelAttribute("accountManagementForm") @Valid AccountManagementForm accountManagementForm) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User auth_user = (User) authentication.getPrincipal();
         User u_tmp = userRepository.updateNumbUser(accountManagementForm.getUserId(), ((User) authentication.getPrincipal()).getId());
+        auth_user.setPhone_number(u_tmp.getPhone_number());
         LOG.info("form: " + accountManagementForm.getUserId());
         LOG.info("User updated: " + u_tmp.getId() + " " + u_tmp.getPhone_number());
         //TODO: check if user is null
