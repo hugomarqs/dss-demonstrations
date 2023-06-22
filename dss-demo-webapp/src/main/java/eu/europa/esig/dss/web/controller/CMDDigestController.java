@@ -50,7 +50,7 @@ public class CMDDigestController {
     //private static final String SIGNATURE_PROCESS = "nexu-signature-process";
 
     private static final String[] ALLOWED_FIELDS = { "signatureForm", "digestAlgorithm", "digestToSign", "documentName", "fileToCompute",
-            "signatureLevel", "signWithExpiredCertificate", "addContentTimestamp" };
+            "signatureLevel", "signWithExpiredCertificate", "addContentTimestamp" ,  "userId", "userPin", "userOtp"};
 
     @Autowired
     private SigningService signingService;
@@ -127,7 +127,7 @@ public class CMDDigestController {
             return SIGN_DIGEST;
         }
 
-        SignatureAlgorithm certificateSignatureAlgorithm = DSSUtils.loadCertificateFromBase64EncodedString(signatureDigestForm.getBase64Certificate()).getSignatureAlgorithm();
+        SignatureAlgorithm certificateSignatureAlgorithm = signingCertificate.getSignatureAlgorithm();
 
         String processId = cmdService.sign(docName,
                 dataToSign.getBytes(),
@@ -174,7 +174,7 @@ public class CMDDigestController {
     } */
 
     @RequestMapping(value = "/sign-document", method = RequestMethod.POST)
-    public String signDigest(Model model, @RequestBody @Valid SignatureValueAsString signatureValue,
+    public String signDigest(Model model,
                                            @ModelAttribute("cmdSignatureDigestForm") @Valid CMDSignatureDigestForm signatureDigestForm,
                                            @ModelAttribute("cmdOtpForm") @Valid CMDOTPForm cmdOtpForm, BindingResult result) {
         String signature = cmdService.validateOtp(signatureDigestForm.getProcessId(), cmdOtpForm.getUserOtp());
