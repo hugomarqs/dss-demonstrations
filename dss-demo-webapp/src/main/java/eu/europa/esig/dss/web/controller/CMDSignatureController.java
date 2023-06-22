@@ -5,6 +5,7 @@ import eu.europa.esig.dss.model.DSSDocument;
 import eu.europa.esig.dss.model.InMemoryDocument;
 import eu.europa.esig.dss.model.MimeType;
 import eu.europa.esig.dss.model.ToBeSigned;
+import eu.europa.esig.dss.model.x509.CertificateToken;
 import eu.europa.esig.dss.spi.DSSUtils;
 import eu.europa.esig.dss.utils.Utils;
 import eu.europa.esig.dss.web.WebAppUtils;
@@ -122,6 +123,9 @@ public class CMDSignatureController {
         signatureDocumentForm.setBase64Certificate(certificates.get(0));
         signatureDocumentForm.setBase64CertificateChain(certificates.subList(1, certificates.size()));
 
+
+        CertificateToken signingCertificate = DSSUtils.loadCertificateFromBase64EncodedString(certificates.get(0));
+        signatureDocumentForm.setEncryptionAlgorithm(EncryptionAlgorithm.forName(signingCertificate.getPublicKey().getAlgorithm()));
         // Set the signing date and, if requested, the content timestamp
         signatureDocumentForm.setSigningDate(new Date());
 
@@ -136,7 +140,7 @@ public class CMDSignatureController {
             return null;
         }
 
-        SignatureAlgorithm certificateSignatureAlgorithm = DSSUtils.loadCertificateFromBase64EncodedString(signatureDocumentForm.getBase64Certificate()).getSignatureAlgorithm();
+        SignatureAlgorithm certificateSignatureAlgorithm = signingCertificate.getSignatureAlgorithm();
 
         String processId = cmdService.sign(docName,
                 dataToSign.getBytes(),
